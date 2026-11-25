@@ -12,6 +12,8 @@ import com.norinti.spring.app.catalogo.dto.CreateUserResponse;
 import com.norinti.spring.app.catalogo.mappers.UserMapper;
 import com.norinti.spring.app.catalogo.service.UserService;
 
+import jakarta.validation.Valid;
+
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -26,15 +28,13 @@ public class UserController {
         this.userService = userService;
     }
 
-
-
     @GetMapping
     public String getTest() {
         return  "Hola mundo";
     }
 
     @PostMapping("/register")
-    public ResponseEntity<CreateUserResponse> register(@RequestBody CreateUserRequest request) {
+    public ResponseEntity<CreateUserResponse> register(@Valid @RequestBody CreateUserRequest request) {
         User user  = userService.save(UserMapper.requestToDomainMapper(request,"1" ));
         return ResponseEntity.status(HttpStatus.CREATED).body(UserMapper.domainToResponseMapper(user));
     }
