@@ -1,5 +1,7 @@
 package com.norinti.spring.app.catalogo.controllers;
 
+import java.util.List;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,6 +13,8 @@ import com.norinti.spring.app.catalogo.dto.CreateUserRequest;
 import com.norinti.spring.app.catalogo.dto.CreateUserResponse;
 import com.norinti.spring.app.catalogo.dto.LoginRequest;
 import com.norinti.spring.app.catalogo.dto.LoginResponse;
+import com.norinti.spring.app.catalogo.dto.UserResponse;
+import com.norinti.spring.app.catalogo.dto.UsersListResponse;
 import com.norinti.spring.app.catalogo.mappers.UserMapper;
 import com.norinti.spring.app.catalogo.service.UserService;
 
@@ -21,7 +25,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 
 @RestController 
-@RequestMapping("/api/v1")
+@RequestMapping("/api/v1/users")
 public class UserController {
 
     private final UserService userService;
@@ -31,8 +35,8 @@ public class UserController {
     }
 
     @GetMapping
-    public String getTest() {
-        return  "Hola mundo";
+    public ResponseEntity<List<UserResponse> > getAll() {
+        return ResponseEntity.status(HttpStatus.OK).body(UserMapper.domainToUserListMapper( userService.findAll()).listUsers());
     }
 
     @PostMapping("/register")

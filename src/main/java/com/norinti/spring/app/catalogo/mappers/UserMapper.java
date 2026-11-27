@@ -1,10 +1,13 @@
 package com.norinti.spring.app.catalogo.mappers;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import com.norinti.spring.app.catalogo.domain.User;
 import com.norinti.spring.app.catalogo.dto.CreateUserRequest;
 import com.norinti.spring.app.catalogo.dto.CreateUserResponse;
+import com.norinti.spring.app.catalogo.dto.UserResponse;
+import com.norinti.spring.app.catalogo.dto.UsersListResponse;
 import com.norinti.spring.app.catalogo.entities.UserEntity;
 
 public class UserMapper {
@@ -13,7 +16,8 @@ public class UserMapper {
         return  new User(userRequest.username(), 
                             userRequest.password(),
                             tenant, 
-                            userRequest.role());
+                            userRequest.role(),
+                        true);
 
     }
 
@@ -28,7 +32,8 @@ public class UserMapper {
         return new User(userEntity.getUsername(), 
                 userEntity.getPassword(),
                 userEntity.getTenant(),
-                userEntity.getRole());
+                userEntity.getRole(),
+                userEntity.isEnabled());
     }
 
     public static UserEntity userToEntity (User user ){
@@ -36,6 +41,18 @@ public class UserMapper {
                 user.getPassword(),
                 user.getTenant(),
                 user.getRole());
+    }
+
+    public static UsersListResponse domainToUserListMapper (List<User> users ){
+
+        List<UserResponse> usersResponse = users.stream()
+            .map(user -> new UserResponse( user.getUsername(),
+            user.getRole(),
+            user.getTenant(),
+            user.isEnabled()
+        )).toList();
+
+        return new UsersListResponse(usersResponse);
     }
 
 }

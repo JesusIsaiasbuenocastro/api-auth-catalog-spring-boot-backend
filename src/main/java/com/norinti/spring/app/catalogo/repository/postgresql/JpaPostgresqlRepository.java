@@ -34,7 +34,8 @@ public class JpaPostgresqlRepository implements  UserRepository{
                         userEntity.getUsername(),
                         userEntity.getPassword(),
                         userEntity.getTenant(),
-                        userEntity.getRole()
+                        userEntity.getRole(),
+                        userEntity.isEnabled()
                 ))
                 .toList();
     }

@@ -24,10 +24,12 @@ public class UserServiceImpl implements UserService{
 
     private static final String ROLE_CLAIM = "role";
 
-    long expirationMinutes = 60;
 
     @Value("${security.jwt.secret}")
     String base64Secret;
+
+    @Value("${security.jwt.expiration-minutes}")
+    long expirationMinutes;
 
     private final SecretKey secretKey;
 
@@ -36,7 +38,10 @@ public class UserServiceImpl implements UserService{
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
-    public UserServiceImpl(UserRepository userRepository, PasswordEncoder passwordEncoder, @Value("${security.jwt.secret}") String base64Secret){
+    public UserServiceImpl(UserRepository userRepository, PasswordEncoder passwordEncoder, 
+                        @Value("${security.jwt.secret}") 
+                        String base64Secret,
+                        @Value("${security.jwt.expiration-minutes}") String expirationMinutes){
         
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
@@ -69,7 +74,6 @@ public class UserServiceImpl implements UserService{
          String token = generateToken(userLogin.getUsername(), userLogin.getRole());
 
         return new AuthToken(token, "Bearer ", expirationSeconds());
-
         
     }
 

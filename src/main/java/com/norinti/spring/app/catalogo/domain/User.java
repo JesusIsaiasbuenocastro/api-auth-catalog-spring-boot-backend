@@ -7,12 +7,14 @@ public class User {
     private String password;
     private String tenant;
     private String role;
+    private boolean enabled;
 
-    public User(String username,String password,String tenant,String role){
+    public User(String username,String password,String tenant,String role, boolean enabled){
         this.username = username;
         this.password = password;
         this.tenant = tenant;
         this.role = role;
+        this.enabled = enabled;
     }
     public User(String username,String password){
         this.username = username;
@@ -48,6 +50,12 @@ public class User {
     }
     public void setRole(String role) {
         this.role = role;
+    }
+    public boolean isEnabled() {
+        return enabled;
+    }
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
     }
     
 }

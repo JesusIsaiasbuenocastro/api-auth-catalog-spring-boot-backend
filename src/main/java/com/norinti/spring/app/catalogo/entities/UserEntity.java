@@ -18,7 +18,7 @@ public class UserEntity {
     @NotBlank 
     private String username;    
 
-    @NotBlank 
+    @NotBlank
     private String password;
 
     @NotBlank 
@@ -26,6 +26,8 @@ public class UserEntity {
 
     @NotBlank 
     private String tenant;
+
+    private boolean enabled;
 
     public UserEntity(){}
 
@@ -78,5 +80,14 @@ public class UserEntity {
         this.tenant = tenant;
     }
 
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
+
+   
     
 }

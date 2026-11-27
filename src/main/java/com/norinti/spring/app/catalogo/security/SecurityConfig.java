@@ -25,9 +25,9 @@ public class SecurityConfig {
             )
 
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers(HttpMethod.POST, "/api/v1/register").permitAll()
-                .requestMatchers(HttpMethod.POST, "/api/v1/login").permitAll()
-                .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+                .requestMatchers(HttpMethod.GET, "/api/v1/users").permitAll()
+                .requestMatchers(HttpMethod.POST, "/api/v1/users/**").permitAll()
+                .requestMatchers(HttpMethod.GET, "/api/v1/catalog").permitAll()
                 .anyRequest().authenticated()
             );
 
