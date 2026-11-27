@@ -27,12 +27,16 @@ public class UserEntity {
     @NotBlank 
     private String tenant;
 
-     public UserEntity(String username,String password,String tenant,String role){
+    public UserEntity(){}
+
+    public UserEntity(String username,String password,String tenant,String role){
         this.username = username;
         this.password = password;
         this.tenant = tenant;
         this.role = role;
     }
+
+    
 
     public Long getId() {
         return id;

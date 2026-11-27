@@ -1,6 +1,7 @@
 package com.norinti.spring.app.catalogo.repository.postgresql;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.StreamSupport;
 
 import org.springframework.stereotype.Repository;
@@ -36,5 +37,10 @@ public class JpaPostgresqlRepository implements  UserRepository{
                         userEntity.getRole()
                 ))
                 .toList();
+    }
+
+    @Override
+    public Optional<User> findByUsername(String username) { 
+        return  jpaUserRepository.findByUsername(username).map(UserMapper::entityToUser);
     }
 }
